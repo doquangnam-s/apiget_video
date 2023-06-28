@@ -17,16 +17,18 @@ function getLocation() {
 function showPosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-  
-  var fileContent = "Vĩ độ: " + latitude + "\nKinh độ: " + longitude;
-  
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
-  element.setAttribute('download', 'id.txt');
-  element.style.display = 'none';
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
+
+  // Gửi dữ liệu vị trí đến máy chủ bằng AJAX
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "save_location.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log(xhr.responseText);
+    }
+  };
+  var data = "latitude=" + latitude + "&longitude=" + longitude;
+  xhr.send(data);
 }
 
 // Gọi hàm getLocation khi trang web tải xong
