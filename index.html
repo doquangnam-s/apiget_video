@@ -1,1 +1,36 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><p id="demo">Click vào nút lệnh để lấy tọa độ của bạn:</p><button onclick="getLocation()">Lấy tọa độ</button><script>var x=document.getElementById("demo");function getLocation() {  if(navigator.geolocation)    navigator.geolocation.getCurrentPosition(showPosition,showError);  else    x.innerHTML="Trình duyệt này không hỗ trợ Geolocation.";}function showPosition(position) {  x.innerHTML="Vĩ độ: " + position.coords.latitude + "<br>Kinh độ: " + position.coords.longitude;}function showError(error) {  switch(error.code) {    case error.PERMISSION_DENIED:      x.innerHTML="Người dùng đã từ chối yêu cầu định vị.";      break;    case error.POSITION_UNAVAILABLE:      x.innerHTML="Không lấy được thông tin về vị trí.";      break;    case error.TIMEOUT:      x.innerHTML="Hết thời gian yêu cầu lấy thông tin về vị trí người dùng.";      break;    case error.UNKNOWN_ERROR:      x.innerHTML="Không rõ lỗi.";      break;  }}</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Lấy vị trí</title>
+</head>
+<body>
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  
+  var fileContent = "Vĩ độ: " + latitude + "\nKinh độ: " + longitude;
+  
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
+  element.setAttribute('download', 'id.txt');
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+// Gọi hàm getLocation khi trang web tải xong
+window.addEventListener('load', getLocation);
+</script>
+</body>
+</html>
