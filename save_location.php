@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Lấy thông tin vị trí từ yêu cầu AJAX
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
