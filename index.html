@@ -1,29 +1,33 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Lấy vị trí</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
 </head>
-<body onload="getLocation()">
 
-  <p>Đang lấy vị trí của bạn...</p>
-  <p id="demo"></p>
+<body>
 
-  <script>
-    var x = document.getElementById("demo");
+<p>Click vào button để lấy tọa độ của bạn.</p>
 
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        x.innerHTML = "Trình duyệt không hỗ trợ Geolocation.";
-      }
-    }
+<button onclick="getLocation()">Click here</button>
 
-    function showPosition(position) {
-      x.innerHTML = "Vĩ độ: " + position.coords.latitude +
-        "<br>Kinh độ: " + position.coords.longitude;
-    }
-  </script>
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Vĩ độ: " + position.coords.latitude + 
+  "<br>Kinh độ: " + position.coords.longitude;
+}
+</script>
 </body>
 </html>
